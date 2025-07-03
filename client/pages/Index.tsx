@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -14,7 +15,9 @@ import {
   Search,
 } from "lucide-react";
 
+
 export default function Index() {
+  const [currentWeek, setCurrentWeek] = useState(1);
   const featuredBooks = [
     {
       title: "The Silent Patient",
@@ -33,6 +36,69 @@ export default function Index() {
       cover: "/placeholder.svg",
       rating: 4.9,
       badge: "Popular",
+    },
+  ];
+
+  const weeklyPicks = [
+    {
+      week: 1,
+      books: [
+        {
+          title: "Modern Philosophy",
+          author: "Alex Turner",
+          image: "/placeholder.svg",
+        },
+        {
+          title: "Data Science Basics",
+          author: "Lisa Park",
+          image: "/placeholder.svg",
+        },
+      ],
+    },
+    {
+      week: 2,
+      books: [
+        {
+          title: "The Art of Code",
+          author: "James Wilson",
+          image: "/placeholder.svg",
+        },
+        {
+          title: "Sustainable Living",
+          author: "Maria Garcia",
+          image: "/placeholder.svg",
+        },
+      ],
+    },
+    {
+      week: 3,
+      books: [
+        {
+          title: "Digital Marketing",
+          author: "Robert Kim",
+          image: "/placeholder.svg",
+        },
+        {
+          title: "Psychology Today",
+          author: "Jennifer Lee",
+          image: "/placeholder.svg",
+        },
+      ],
+    },
+    {
+      week: 4,
+      books: [
+        {
+          title: "Laut Bercerita",
+          author: "Leila C",
+          image: "/placeholder.svg",
+        },
+        {
+          title: "Animal Farm",
+          author: "Jennifer Lee",
+          image: "/placeholder.svg",
+        },
+      ],
     },
   ];
 
@@ -149,16 +215,20 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-background">
+      
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
-                <span className="text-xs font-bold text-gray-600">A</span>
+              <div className="w-8 h-8 rounded-full flex items-center justify-center overflow-hidden">
+                <img
+                  src="/airbook_logo.png" 
+                  className="w-full h-full object-cover" 
+                />
               </div>
               <span className="text-lg font-medium text-foreground">
-                AllBook
+                AIRBook
               </span>
             </div>
 
@@ -205,37 +275,36 @@ export default function Index() {
       </nav>
 
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-yellow-100 to-orange-200">
+      <section className="relative py-20 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center min-h-[500px]">
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <h1
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight"
-                  style={{ margin: "-3px 27px 0 33px" }}
-                >
-                  Jelajahi Dunia Lewat
-                  <br />
-                  Buku, Mulai dari
-                  <br />
-                  <span className="text-foreground">AllBook</span>
-                </h1>
-                <p
-                  className="text-lg text-muted-foreground max-w-md"
-                  style={{ margin: "16px 0 0 34px" }}
-                >
-                  Nikmati kemudahan membeli buku kapan saja dan di mana saja,
-                  hanya dengan beberapa klik.
-                </p>
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            
+            {/* Text Content - Adjusted for smaller size */}
+            <div className="space-y-6 text-center md:text-left md:pl-8">
+              <h1 className="text-4xl md:text-4xl lg:text-5xl font-serif font-medium text-[#000000] leading-tight">
+                Jelajahi Dunia Lewat
+                <br />
+                Buku, Mulai dari
+                <br />
+                <span className="font-bold">AIRBook</span>
+              </h1>
+              <p className="text-lg text-stone-600 max-w-md mx-auto md:mx-0">
+                Nikmati kemudahan membeli buku kapan saja dan di mana saja, hanya dengan beberapa klik.
+              </p>
+              <div className="pt-4">
+                  <button className="bg-[#664229] hover:bg-[#5a3923] text-white font- py-3 px-8 rounded-lg transition-all duration-300 shadow-lg">
+                  Mulai Berbelanja
+                </button>
               </div>
             </div>
-            <div className="flex justify-center">
+
+            {/* Image Content - Using the illustration from your original code */}
+            <div className="flex justify-center items-center">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2F3932a6b5696a4ffab89fc4c5aa10f6d8%2F16232a4b310c4e859ce7f6c01ff260e6?format=webp&width=800"
-                alt="Person reading book illustration"
-                className="w-auto flex-grow"
-                style={{ margin: "-34px 0 0 -86px" }}
-              />
+                alt="Ilustrasi seseorang sedang membaca buku di atas tumpukan buku besar"
+                className="w-full max-w-md lg:max-w-lg h-auto"
+                />
             </div>
           </div>
         </div>
@@ -250,80 +319,53 @@ export default function Index() {
       {/* Book Showcase Section */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="grid grid-cols-2 gap-4">
-              {/* Top row books */}
-              <div className="space-y-4">
-                <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-lg flex flex-col">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2F3932a6b5696a4ffab89fc4c5aa10f6d8%2Fe6c2111709f8400aa3900aae1a0b7abd"
-                    alt="Kamu gak sendiri book cover"
-                    className="object-cover"
-                    style={{
-                      height: "70%",
-                      width: "70%",
-                      margin: "97px 15px 0 auto",
-                    }}
-                  />
-                </div>
+          {/* Diubah dari md:grid-cols-2 menjadi md:grid-cols-5. 
+            Gambar mendapat 2 bagian (col-span-2), teks mendapat 3 bagian (col-span-3).
+          */}
+          <div className="grid md:grid-cols-5 gap-12 items-center">
+            
+            {/* Kolom Gambar (diberi 2 dari 5 bagian) */}
+            <div className="md:col-span-2 grid grid-cols-2 gap-4">
+              {/* Top Left Book */}
+              <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-lg bg-white">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2F3932a6b5696a4ffab89fc4c5aa10f6d8%2Fe6c2111709f8400aa3900aae1a0b7abd"
+                  alt="Kamu gak sendiri book cover"
+                  className="w-full h-full object-contain"
+                />
               </div>
-              <div className="space-y-4">
-                <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-lg flex flex-col">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2F3932a6b5696a4ffab89fc4c5aa10f6d8%2F8aeedc592c71447882f8fa54f0853d4a"
-                    alt="Laut Bercerita book cover"
-                    className="object-cover"
-                    style={{
-                      height: "70%",
-                      width: "70%",
-                      margin: "97px auto 0 13px",
-                    }}
-                  />
-                </div>
+              {/* Top Right Book */}
+              <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-lg bg-white">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2F3932a6b5696a4ffab89fc4c5aa10f6d8%2F8aeedc592c71447882f8fa54f0853d4a"
+                  alt="Laut Bercerita book cover"
+                  className="w-full h-full object-contain"
+                />
               </div>
-
-              {/* Bottom row books */}
-              <div className="space-y-4">
-                <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-lg flex flex-col">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2F3932a6b5696a4ffab89fc4c5aa10f6d8%2Ffe044db04e67486eb2a974f49091b8d4"
-                    alt="Sapiens Grafis vol.2 book cover"
-                    className="object-cover"
-                    style={{
-                      height: "70%",
-                      width: "70%",
-                      margin: "0 13px 0 auto",
-                    }}
-                  />
-                </div>
+              {/* Bottom Left Book */}
+              <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-lg bg-white">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2F3932a6b5696a4ffab89fc4c5aa10f6d8%2Ffe044db04e67486eb2a974f49091b8d4"
+                  alt="Sapiens Grafis vol.2 book cover"
+                  className="w-full h-full object-contain"
+                />
               </div>
-              <div className="space-y-4">
-                <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-lg flex flex-col">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2F3932a6b5696a4ffab89fc4c5aa10f6d8%2Fd1012090813142299708a56fa09c5993"
-                    alt="Start With Why book cover"
-                    className="object-cover"
-                    style={{
-                      height: "70%",
-                      width: "70%",
-                      margin: "0 auto 0 15px",
-                    }}
-                  />
-                </div>
+              {/* Bottom Right Book */}
+              <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-lg bg-white">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2F3932a6b5696a4ffab89fc4c5aa10f6d8%2Fd1012090813142299708a56fa09c5993"
+                  alt="Start With Why book cover"
+                  className="w-full h-full object-contain"
+                />
               </div>
             </div>
 
-            <div className="flex flex-col">
-              <h2
-                className="text-3xl md:text-4xl font-bold text-foreground"
-                style={{ margin: "-166px 0 -8px -6px" }}
-              >
+            {/* Kolom Teks (diberi 3 dari 5 bagian) */}
+            <div className="md:col-span-3 space-y-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
                 Temukan Buku Favoritmu Disini
               </h2>
-              <p
-                className="text-muted-foreground leading-relaxed self-center"
-                style={{ margin: "21px 17px -28px -2px" }}
-              >
+              <p className="text-gray-600 leading-relaxed">
                 Dengan buku fisik, Anda dapat merasakan pengalaman membaca yang
                 lebih nyata dan mendalam. Nikmati aroma khas kertas, sensasi
                 membalik halaman, dan fokus penuh tanpa gangguan layar. Bawa
@@ -334,66 +376,7 @@ export default function Index() {
           </div>
         </div>
       </section>
-
-      {/* Featured Books */}
-      <section className="py-16 bg-background flex flex-col justify-start items-start">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              Temukan Buku Terpopuler Hari Ini
-            </h2>
-            <p className="text-muted-foreground">
-              Koleksi terpilih dari editor kami
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {featuredBooks.map((book, index) => (
-              <Card
-                key={index}
-                className="overflow-hidden hover:shadow-lg transition-shadow"
-              >
-                <div className="grid grid-cols-3 h-48">
-                  <div className="col-span-1 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                    <BookOpen className="h-12 w-12 text-gray-500" />
-                  </div>
-                  <div className="col-span-2 p-6 flex flex-col justify-between">
-                    <div>
-                      <Badge className="mb-2">{book.badge}</Badge>
-                      <h3 className="font-bold text-lg mb-1">{book.title}</h3>
-                      <p className="text-muted-foreground text-sm mb-2">
-                        {book.author}
-                      </p>
-                      <div className="flex items-start justify-start mb-5">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`h-4 w-4 ${i < Math.floor(book.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
-                          />
-                        ))}
-                        <span className="ml-2 text-sm text-muted-foreground">
-                          {book.rating}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <span className="font-bold text-lg text-primary">
-                          {book.price}
-                        </span>
-                        <span className="ml-2 text-sm text-muted-foreground line-through">
-                          {book.originalPrice}
-                        </span>
-                      </div>
-                      <Button size="sm">Beli</Button>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      
       {/* Sale Banner */}
       <section className="py-16 relative overflow-hidden">
         <img
@@ -401,192 +384,194 @@ export default function Index() {
           alt="Book Sale Now - Discover literary treasures at incredible prices"
           className="w-full h-full object-cover"
         />
-        <div
-          className="absolute"
-          style={{ left: "70px", top: "-1632px", right: "0px", bottom: "0px" }}
-        />
+        <div className="absolute inset-0" />
       </section>
 
       {/* Popular Books */}
       <section className="py-16 bg-gray-100">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5 max-w-6xl mx-auto">
-            {/* Glossy Gentleman Guide */}
-            <div className="bg-white rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="w-full aspect-[3/4] bg-black rounded-xl overflow-hidden mb-4 relative">
-                <div className="absolute inset-0 bg-black flex flex-col items-center justify-between text-white p-4">
-                  <div className="flex items-center space-x-1 mt-1">
-                    <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                    <div className="w-1 h-1 bg-white rounded-full"></div>
-                  </div>
-                  <div className="text-center flex-1 flex flex-col justify-center">
-                    <div className="w-10 h-10 bg-white rounded-full mx-auto mb-4 flex items-center justify-center">
-                      <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center">
-                        <div className="w-3 h-3 bg-white rounded-full"></div>
-                      </div>
-                    </div>
-                    <div className="text-sm font-light leading-tight tracking-wide">
-                      GLOSSY
-                      <br />
-                      GENTLEMAN
-                      <br />
-                      GUIDE
+      <div className="container mx-auto px-4">
+        {/* Judul Ditambahkan di Sini */}
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
+          Temukan Buku Terpopuler Hari Ini
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5 max-w-6xl mx-auto">
+          {/* Glossy Gentleman Guide */}
+          <div className="bg-white rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="w-full aspect-[3/4] bg-black rounded-xl overflow-hidden mb-4 relative">
+              <div className="absolute inset-0 bg-black flex flex-col items-center justify-between text-white p-4">
+                <div className="flex items-center space-x-1 mt-1">
+                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                  <div className="w-1 h-1 bg-white rounded-full"></div>
+                </div>
+                <div className="text-center flex-1 flex flex-col justify-center">
+                  <div className="w-10 h-10 bg-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center">
+                      <div className="w-3 h-3 bg-white rounded-full"></div>
                     </div>
                   </div>
-                  <div className="text-[10px] text-center opacity-90 leading-tight">
-                    JET WIDODO, ADI SAPOETRO, LEO SIRTHUAS
+                  <div className="text-sm font-light leading-tight tracking-wide">
+                    GLOSSY
+                    <br />
+                    GENTLEMAN
+                    <br />
+                    GUIDE
                   </div>
                 </div>
-              </div>
-              <div className="text-center space-y-1">
-                <h3 className="font-semibold text-gray-900 text-sm">
-                  Glossy Gentleman Guide
-                </h3>
-                <p className="text-xs text-gray-600">
-                  Jet Widodo, Adi Sapoetro, Leo Sirthuas
-                </p>
+                <div className="text-[10px] text-center opacity-90 leading-tight">
+                  JET WIDODO, ADI SAPOETRO, LEO SIRTHUAS
+                </div>
               </div>
             </div>
+            <div className="text-center space-y-1">
+              <h3 className="font-semibold text-gray-900 text-sm">
+                Glossy Gentleman Guide
+              </h3>
+              <p className="text-xs text-gray-600">
+                Jet Widodo, Adi Sapoetro, Leo Sirthuas
+              </p>
+            </div>
+          </div>
 
-            {/* Start With Why */}
-            <div className="bg-white rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="w-full aspect-[3/4] bg-red-600 rounded-xl overflow-hidden mb-4 flex items-center justify-center">
-                <div className="text-white text-center font-black text-2xl leading-none tracking-wider">
-                  <div className="mb-2">START</div>
-                  <div className="mb-2">WITH</div>
-                  <div>WHY</div>
-                </div>
-              </div>
-              <div className="text-center space-y-1">
-                <h3 className="font-semibold text-gray-900 text-sm">
-                  Start With Why
-                </h3>
-                <p className="text-xs text-gray-600">Simon Sinek</p>
+          {/* Start With Why */}
+          <div className="bg-white rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="w-full aspect-[3/4] bg-red-600 rounded-xl overflow-hidden mb-4 flex items-center justify-center">
+              <div className="text-white text-center font-black text-2xl leading-none tracking-wider">
+                <div className="mb-2">START</div>
+                <div className="mb-2">WITH</div>
+                <div>WHY</div>
               </div>
             </div>
+            <div className="text-center space-y-1">
+              <h3 className="font-semibold text-gray-900 text-sm">
+                Start With Why
+              </h3>
+              <p className="text-xs text-gray-600">Simon Sinek</p>
+            </div>
+          </div>
 
-            {/* Sapiens Grafis vol.2 */}
-            <div className="bg-white rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="w-full aspect-[3/4] bg-white rounded-xl overflow-hidden mb-4 relative border border-gray-200">
-                <div className="absolute inset-0 flex flex-col p-3">
-                  <div className="text-center mb-3">
-                    <div className="text-lg font-bold text-gray-800 mb-1">
-                      Sapiens
-                    </div>
-                    <div className="text-xs text-gray-600 font-medium tracking-wide">
-                      GRAFIS VOL.2
-                    </div>
+          {/* Sapiens Grafis vol.2 */}
+          <div className="bg-white rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="w-full aspect-[3/4] bg-white rounded-xl overflow-hidden mb-4 relative border border-gray-200">
+              <div className="absolute inset-0 flex flex-col p-3">
+                <div className="text-center mb-3">
+                  <div className="text-lg font-bold text-gray-800 mb-1">
+                    Sapiens
                   </div>
-                  <div className="flex-1 flex items-center justify-center relative">
-                    {/* Archaeological/cave painting style illustration */}
-                    <div className="relative w-full h-24 bg-gradient-to-br from-orange-100 to-amber-200 rounded-lg overflow-hidden">
-                      <div className="absolute inset-2">
-                        {/* Simple cave painting style figures */}
-                        <div className="w-8 h-8 bg-orange-600 rounded-full absolute top-1 left-2"></div>
-                        <div className="w-6 h-6 bg-amber-700 rounded-full absolute top-3 right-3"></div>
-                        <div className="w-4 h-8 bg-orange-800 absolute bottom-2 left-4"></div>
-                        <div className="w-3 h-6 bg-amber-800 absolute bottom-1 right-2"></div>
-                        {/* Simple landscape elements */}
-                        <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-orange-300 to-transparent"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-[10px] text-gray-700 text-center font-medium tracking-wider mt-2">
-                    YUVAL NOAH HARARI
+                  <div className="text-xs text-gray-600 font-medium tracking-wide">
+                    GRAFIS VOL.2
                   </div>
                 </div>
-              </div>
-              <div className="text-center space-y-1">
-                <h3 className="font-semibold text-gray-900 text-sm">
-                  Sapiens Grafis vol.2
-                </h3>
-                <p className="text-xs text-gray-600">Yuval Noah Harari</p>
+                <div className="flex-1 flex items-center justify-center relative">
+                  {/* Archaeological/cave painting style illustration */}
+                  <div className="relative w-full h-24 bg-gradient-to-br from-orange-100 to-amber-200 rounded-lg overflow-hidden">
+                    <div className="absolute inset-2">
+                      {/* Simple cave painting style figures */}
+                      <div className="w-8 h-8 bg-orange-600 rounded-full absolute top-1 left-2"></div>
+                      <div className="w-6 h-6 bg-amber-700 rounded-full absolute top-3 right-3"></div>
+                      <div className="w-4 h-8 bg-orange-800 absolute bottom-2 left-4"></div>
+                      <div className="w-3 h-6 bg-amber-800 absolute bottom-1 right-2"></div>
+                      {/* Simple landscape elements */}
+                      <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-orange-300 to-transparent"></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-[10px] text-gray-700 text-center font-medium tracking-wider mt-2">
+                  YUVAL NOAH HARARI
+                </div>
               </div>
             </div>
+            <div className="text-center space-y-1">
+              <h3 className="font-semibold text-gray-900 text-sm">
+                Sapiens Grafis vol.2
+              </h3>
+              <p className="text-xs text-gray-600">Yuval Noah Harari</p>
+            </div>
+          </div>
 
-            {/* Laut Bercerita */}
-            <div className="bg-white rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="w-full aspect-[3/4] bg-gradient-to-br from-sky-300 via-blue-400 to-blue-500 rounded-xl overflow-hidden mb-4 relative">
-                <div className="absolute inset-0 p-3">
-                  {/* Ocean waves and maritime elements */}
-                  <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-blue-200/40 to-transparent"></div>
-                  <div className="absolute top-6 left-2 right-2 h-6 bg-blue-300/30 rounded-full"></div>
-                  <div className="absolute top-10 left-4 right-4 h-4 bg-blue-400/40 rounded-full"></div>
+          {/* Laut Bercerita */}
+          <div className="bg-white rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="w-full aspect-[3/4] bg-gradient-to-br from-sky-300 via-blue-400 to-blue-500 rounded-xl overflow-hidden mb-4 relative">
+              <div className="absolute inset-0 p-3">
+                {/* Ocean waves and maritime elements */}
+                <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-blue-200/40 to-transparent"></div>
+                <div className="absolute top-6 left-2 right-2 h-6 bg-blue-300/30 rounded-full"></div>
+                <div className="absolute top-10 left-4 right-4 h-4 bg-blue-400/40 rounded-full"></div>
 
-                  {/* Central illustration area */}
-                  <div className="absolute inset-x-4 top-16 bottom-16 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                    <div className="w-16 h-12 bg-white/30 rounded-lg relative overflow-hidden">
-                      <div className="absolute inset-1 bg-blue-600/40 rounded"></div>
-                      <div className="absolute top-2 left-2 w-4 h-3 bg-white/60 rounded-sm"></div>
-                      <div className="absolute bottom-2 right-2 w-3 h-2 bg-blue-200/80 rounded-sm"></div>
-                    </div>
-                  </div>
-
-                  {/* Title */}
-                  <div className="absolute bottom-8 left-0 right-0 text-center text-white">
-                    <div className="text-sm font-bold tracking-wide mb-1">
-                      LAUT
-                    </div>
-                    <div className="text-sm font-bold tracking-wide">
-                      BERCERITA
-                    </div>
-                  </div>
-
-                  {/* Author */}
-                  <div className="absolute bottom-2 left-0 right-0 text-center">
-                    <div className="text-[10px] text-white/90 tracking-wider">
-                      LEILA S. CHUDORI
-                    </div>
+                {/* Central illustration area */}
+                <div className="absolute inset-x-4 top-16 bottom-16 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                  <div className="w-16 h-12 bg-white/30 rounded-lg relative overflow-hidden">
+                    <div className="absolute inset-1 bg-blue-600/40 rounded"></div>
+                    <div className="absolute top-2 left-2 w-4 h-3 bg-white/60 rounded-sm"></div>
+                    <div className="absolute bottom-2 right-2 w-3 h-2 bg-blue-200/80 rounded-sm"></div>
                   </div>
                 </div>
-              </div>
-              <div className="text-center space-y-1">
-                <h3 className="font-semibold text-gray-900 text-sm">
-                  Laut Bercerita
-                </h3>
-                <p className="text-xs text-gray-600">Leila S. Chudori</p>
+
+                {/* Title */}
+                <div className="absolute bottom-8 left-0 right-0 text-center text-white">
+                  <div className="text-sm font-bold tracking-wide mb-1">
+                    LAUT
+                  </div>
+                  <div className="text-sm font-bold tracking-wide">
+                    BERCERITA
+                  </div>
+                </div>
+
+                {/* Author */}
+                <div className="absolute bottom-2 left-0 right-0 text-center">
+                  <div className="text-[10px] text-white/90 tracking-wider">
+                    LEILA S. CHUDORI
+                  </div>
+                </div>
               </div>
             </div>
+            <div className="text-center space-y-1">
+              <h3 className="font-semibold text-gray-900 text-sm">
+                Laut Bercerita
+              </h3>
+              <p className="text-xs text-gray-600">Leila S. Chudori</p>
+            </div>
+          </div>
 
-            {/* Glossy Gentleman Guide (repeat) */}
-            <div className="bg-white rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="w-full aspect-[3/4] bg-black rounded-xl overflow-hidden mb-4 relative">
-                <div className="absolute inset-0 bg-black flex flex-col items-center justify-between text-white p-4">
-                  <div className="flex items-center space-x-1 mt-1">
-                    <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                    <div className="w-1 h-1 bg-white rounded-full"></div>
-                  </div>
-                  <div className="text-center flex-1 flex flex-col justify-center">
-                    <div className="w-10 h-10 bg-white rounded-full mx-auto mb-4 flex items-center justify-center">
-                      <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center">
-                        <div className="w-3 h-3 bg-white rounded-full"></div>
-                      </div>
-                    </div>
-                    <div className="text-sm font-light leading-tight tracking-wide">
-                      GLOSSY
-                      <br />
-                      GENTLEMAN
-                      <br />
-                      GUIDE
+          {/* Glossy Gentleman Guide (repeat) */}
+          <div className="bg-white rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="w-full aspect-[3/4] bg-black rounded-xl overflow-hidden mb-4 relative">
+              <div className="absolute inset-0 bg-black flex flex-col items-center justify-between text-white p-4">
+                <div className="flex items-center space-x-1 mt-1">
+                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                  <div className="w-1 h-1 bg-white rounded-full"></div>
+                </div>
+                <div className="text-center flex-1 flex flex-col justify-center">
+                  <div className="w-10 h-10 bg-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center">
+                      <div className="w-3 h-3 bg-white rounded-full"></div>
                     </div>
                   </div>
-                  <div className="text-[10px] text-center opacity-90 leading-tight">
-                    JET WIDODO, ADI SAPOETRO, LEO SIRTHUAS
+                  <div className="text-sm font-light leading-tight tracking-wide">
+                    GLOSSY
+                    <br />
+                    GENTLEMAN
+                    <br />
+                    GUIDE
                   </div>
                 </div>
+                <div className="text-[10px] text-center opacity-90 leading-tight">
+                  JET WIDODO, ADI SAPOETRO, LEO SIRTHUAS
+                </div>
               </div>
-              <div className="text-center space-y-1">
-                <h3 className="font-semibold text-gray-900 text-sm">
-                  Glossy Gentleman Guide
-                </h3>
-                <p className="text-xs text-gray-600">
-                  Jet Widodo, Adi Sapoetro, Leo Sirthuas
-                </p>
-              </div>
+            </div>
+            <div className="text-center space-y-1">
+              <h3 className="font-semibold text-gray-900 text-sm">
+                Glossy Gentleman Guide
+              </h3>
+              <p className="text-xs text-gray-600">
+                Jet Widodo, Adi Sapoetro, Leo Sirthuas
+              </p>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* About Us */}
       <section className="py-16 bg-gray-50">
@@ -608,7 +593,7 @@ export default function Index() {
                 pembaca, penulis, dan pecinta literatur yang memiliki kesamaan
                 yang sama terhadap kekuatan dan keajaiban kata-kata. Didirikan
                 dengan visi untuk membuat buku lebih mudah diakses oleh semua
-                orang, AllBook dan kami berpacu menjadi wadah bagi para pembaca
+                orang, AirBook dan kami berpacu menjadi wadah bagi para pembaca
                 untuk menemukan serta menyesuaikan klasik- klasik terbebut.
                 Platform kami bertujuan untuk menghubungkan individu yang
                 memiliki semangat terhadap dunia sastra, mendorong diskusi,
@@ -617,9 +602,9 @@ export default function Index() {
                 menjelajahi keajaiban cerita, dan memperluas wawasan melalui
                 buku-buku yang tentara.
               </p>
-              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md">
-                Learn More
-              </Button>
+              <button className="bg-[#664229] hover:bg-[#5a3923] text-white font- py-3 px-8 rounded-lg transition-all duration-300 shadow-lg">
+                  Pelajari Lebih Lanjut
+                </button>
             </div>
           </div>
         </div>
@@ -664,51 +649,87 @@ export default function Index() {
         </div>
       </section>
 
-      {/* AllBook's Picks */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              AllBook's Picks
+      {/* Featured Books */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            {/* Warna judul diubah */}
+            <h2 className="font-serif text-4xl font-bold text-[#664229] mb-4">
+              Pilihan Buku Terbaik Kami
             </h2>
-            <p className="text-muted-foreground">
-              Rekomendasi khusus dari tim editor kami
+            <p className="text-xl text-muted-foreground">
+              Temukan pilihan favorit staf kami, diperbarui setiap minggu.
             </p>
           </div>
-          <div className="space-y-8">
-            {bookPicks.map((book, index) => (
-              <Card
-                key={index}
-                className="overflow-hidden hover:shadow-lg transition-shadow"
-              >
-                <div className="grid md:grid-cols-4 gap-6 p-6">
-                  <div className="md:col-span-1">
-                    <div className="aspect-[3/4] bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg flex items-center justify-center">
-                      <BookOpen className="h-12 w-12 text-gray-500" />
+
+          <div className="flex justify-center mb-8">
+            <div className="flex space-x-2 bg-muted rounded-lg p-1">
+              {weeklyPicks.map((week) => (
+                <button
+                  key={week.week}
+                  onClick={() => setCurrentWeek(week.week)}
+                  // Warna tombol aktif dan hover diubah
+                  className={`px-6 py-2 rounded-md font-medium transition-colors ${
+                    currentWeek === week.week
+                      ? "bg-[#664229] text-white"
+                      : "text-muted-foreground hover:text-[#664229]"
+                  }`}
+                >
+                  WEEK {week.week}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {weeklyPicks
+              .find((w) => w.week === currentWeek)
+              ?.books.map((book, index) => (
+                <Card
+                  key={index}
+                  className="group cursor-pointer hover:shadow-lg transition-all duration-300"
+                >
+                  <CardContent className="p-6">
+                    <div className="flex space-x-6">
+                      <div className="w-24 h-32 rounded-lg overflow-hidden bg-gradient-to-br from-paper-100 to-cream-100 flex-shrink-0">
+                        <img
+                          src={book.image}
+                          alt={book.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        {/* Warna judul buku diubah */}
+                        <h3 className="font-serif text-xl font-semibold text-[#664229] mb-2 transition-colors">
+                          {book.title}
+                        </h3>
+                        <p className="text-muted-foreground mb-4">
+                          by {book.author}
+                        </p>
+                        <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                          This week's carefully selected title offers readers an
+                          exceptional journey through compelling storytelling
+                          and profound insights.
+                        </p>
+                        {/* Warna tombol 'Learn More' diubah */}
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-[#664229] text-[#664229] hover:bg-[#664229] hover:text-white"
+                        >
+                          Learn More
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                  <div className="md:col-span-3 space-y-4">
-                    <div>
-                      <Badge variant="secondary" className="mb-2">
-                        {book.category}
-                      </Badge>
-                      <h3 className="text-xl font-bold mb-1">{book.title}</h3>
-                      <p className="text-muted-foreground">{book.author}</p>
-                    </div>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {book.description}
-                    </p>
-                    <Button>Baca Selengkapnya</Button>
-                  </div>
-                </div>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))}
           </div>
         </div>
       </section>
 
       {/* Media Partners */}
-      <section className="py-16 bg-muted/30">
+      <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">
@@ -808,126 +829,59 @@ export default function Index() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-foreground text-background py-16">
+    <footer className="bg-[#664229] text-stone-300 py-12">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="space-y-4">
-              <div className="flex items-center space-x-2">
-                <BookOpen className="h-8 w-8 text-primary" />
-                <span className="text-xl font-bold">AllBook</span>
-              </div>
-              <p className="text-background/80 text-sm">
-                Platform terpercaya untuk menemukan dan membeli buku berkualitas
-                dengan harga terjangkau.
-              </p>
-              <div className="flex space-x-4">
-                <div className="w-8 h-8 bg-background/10 rounded-full flex items-center justify-center">
-                  <span className="text-xs">f</span>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                {/* Column 1: Brand and Social Media */}
+                <div className="space-y-4">
+                    <div className="flex items-center space-x-2">
+                        <BookOpen className="h-8 w-8 text-white" />
+                        <span className="text-xl font-bold text-white">AirBook</span>
+                    </div>
+                    <p className="text-stone-300 text-sm">
+                        Platform terpercaya untuk menemukan dan membeli buku berkualitas dengan harga terjangkau.
+                    </p>
+                    
                 </div>
-                <div className="w-8 h-8 bg-background/10 rounded-full flex items-center justify-center">
-                  <span className="text-xs">t</span>
+
+                {/* Column 2: Categories */}
+                <div>
+                    <h3 className="font-bold text-white mb-4">Kategori</h3>
+                    <ul className="space-y-2 text-sm text-stone-300">
+                        <li><a href="#" className="hover:text-white transition-colors">Fiksi</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors">Non-Fiksi</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors">Bisnis</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors">Teknologi</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors">Sejarah</a></li>
+                    </ul>
                 </div>
-                <div className="w-8 h-8 bg-background/10 rounded-full flex items-center justify-center">
-                  <span className="text-xs">i</span>
+
+                {/* Column 3: Services */}
+                <div>
+                    <h3 className="font-bold text-white mb-4">Layanan</h3>
+                    <ul className="space-y-2 text-sm text-stone-300">
+                        <li><a href="#" className="hover:text-white transition-colors">Bantuan</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors">Pembayaran</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors">Pengiriman</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors">Pengembalian</a></li>
+                    </ul>
                 </div>
-              </div>
+
+                {/* Column 4: Contact */}
+                <div>
+                    <h3 className="font-bold text-white mb-4">Kontak</h3>
+                    <ul className="space-y-2 text-sm text-stone-300">
+                        <li>Email: info@airbook.id</li>
+                        <li>Telepon: (021) 1234-5678</li>
+                        <li>Alamat: Jakarta, Indonesia</li>
+                    </ul>
+                </div>
             </div>
-            <div>
-              <h3 className="font-bold mb-4">Kategori</h3>
-              <ul className="space-y-2 text-sm text-background/80">
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-background transition-colors"
-                  >
-                    Fiksi
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-background transition-colors"
-                  >
-                    Non-Fiksi
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-background transition-colors"
-                  >
-                    Bisnis
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-background transition-colors"
-                  >
-                    Teknologi
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-background transition-colors"
-                  >
-                    Sejarah
-                  </a>
-                </li>
-              </ul>
+            <div className="border-t border-white/20 mt-12 pt-8 text-center text-sm text-stone-400">
+                <p>&copy; {new Date().getFullYear()} AirBook. All rights reserved.</p>
             </div>
-            <div>
-              <h3 className="font-bold mb-4">Layanan</h3>
-              <ul className="space-y-2 text-sm text-background/80">
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-background transition-colors"
-                  >
-                    Bantuan
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-background transition-colors"
-                  >
-                    Pembayaran
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-background transition-colors"
-                  >
-                    Pengiriman
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-background transition-colors"
-                  >
-                    Pengembalian
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold mb-4">Kontak</h3>
-              <ul className="space-y-2 text-sm text-background/80">
-                <li>Email: info@allbook.id</li>
-                <li>Telepon: (021) 1234-5678</li>
-                <li>Alamat: Jakarta, Indonesia</li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-background/20 mt-12 pt-8 text-center text-sm text-background/60">
-            <p>&copy; 2024 AllBook. All rights reserved.</p>
-          </div>
         </div>
-      </footer>
+    </footer>
     </div>
   );
 }
